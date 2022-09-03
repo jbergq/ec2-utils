@@ -43,6 +43,6 @@ for instance in running_instances:
         print("{0}: {1}".format(attr, instance_value))
 
     print(
-        f"\nConnect command: \nssh -i ec2-key-pair.pem ubuntu@{instance.public_dns_name}"
+        f'\nConnect command: \nssh -i ".ssh/ec2-key-pair.pem" ubuntu@{instance.public_dns_name}'
     )
     print("------")

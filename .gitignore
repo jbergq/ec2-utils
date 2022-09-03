@@ -1,2 +1,3 @@
 venv
-ec2-key-pair.pem
+.ssh/ec2-key-pair.pem
+.ssh/config
