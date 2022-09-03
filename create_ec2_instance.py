@@ -6,7 +6,7 @@ name = "test-boto3-instance"
 
 # Create a new EC2 instance.
 instances = ec2.create_instances(
-    ImageId="ami-012ae45a4a2d92750",
+    ImageId="ami-0b1b702a76781d077",
     MinCount=1,
     MaxCount=1,
     InstanceType="t3.micro",
