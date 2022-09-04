@@ -29,3 +29,14 @@ Mount your EFS. Lookup the DNS name of your EFS and use in the command below. It
 ```
 sudo mount -t nfs4 -o nfsvers=4.1,rsize=1048576,wsize=1048576,hard,timeo=600,retrans=2,noresvport <Replace with your EFS DNS Name>:/ /mnt/efs
 ```
+
+### Add SSH key
+
+It can be convenient to store your SSH keys inside your EFS. If this is the case, you need to add them to your ssh-agent in order for them to work.
+
+```
+ssh-agent /bin/bash
+ssh-add /path/to/ssh/id_rsa
+```
+
+For example, `/path/to/ssh/id_rsa` can be `/mnt/efs/.ssh/id_rsa`.
