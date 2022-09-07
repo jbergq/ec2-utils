@@ -43,3 +43,19 @@ ssh-add /path/to/ssh/id_rsa
 ```
 
 For example, `/path/to/ssh/id_rsa` can be `/mnt/efs/.ssh/id_rsa`.
+
+### Install virtualenv, pip
+
+To install virtualenv and pip in the new instance, run
+
+```
+sudo apt install python3.8-venv
+sudo apt update
+sudo apt install python3-pip
+```
+
+To create a new virtual environment, run
+
+```
+python3.8 -m venv /path/to/venv
+```
