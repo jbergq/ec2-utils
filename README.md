@@ -38,11 +38,18 @@ sudo chmod -R 777 /mnt/efs
 It can be convenient to store your SSH keys inside your EFS. If this is the case, you need to add them to your ssh-agent in order for them to work.
 
 ```
-ssh-agent /bin/bash
-ssh-add /path/to/ssh/id_rsa
+touch ~/.ssh/config
 ```
 
-For example, `/path/to/ssh/id_rsa` can be `/mnt/efs/.ssh/id_rsa`.
+Inside of the file, paste the following:
+
+```
+Host github.com
+ HostName github.com
+ IdentityFile /path/to/ssh/id_rsa
+```
+
+Where `/path/to/ssh/id_rsa` can for example be `/mnt/efs/.ssh/id_rsa`.
 
 ### Install virtualenv, pip
 
