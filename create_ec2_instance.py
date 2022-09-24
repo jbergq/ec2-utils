@@ -2,14 +2,29 @@ import argparse
 
 import boto3
 
-ec2 = boto3.resource("ec2")
 
-name = "g4dn-boto3-instance"
+def put_cpu_alarm(instance_id):
+    cloudwatch = boto3.client("cloudwatch")
+    cloudwatch.put_metric_alarm(
+        AlarmName=f"CPU_ALARM_{instance_id}",
+        AlarmDescription="Alarm when server CPU does not exceed 10%",
+        AlarmActions=["arn:aws:automate:eu-north-1:ec2:stop"],
+        MetricName="CPUUtilization",
+        Namespace="AWS/EC2",
+        Statistic="Average",
+        Dimensions=[{"Name": "InstanceId", "Value": instance_id}],
+        Period=900,
+        EvaluationPeriods=3,
+        Threshold=10,
+        ComparisonOperator="LessThanOrEqualToThreshold",
+        TreatMissingData="notBreaching",
+    )
 
 
 def parse_args():
     parser = argparse.ArgumentParser()
 
+    parser.add_argument("-n", "--name", help="The name of the instance.", required=True)
     parser.add_argument(
         "-t",
         "--type",
@@ -23,6 +38,8 @@ def parse_args():
 
 
 def main(args):
+    ec2 = boto3.resource("ec2")
+
     # Create a new EC2 instance.
     instances = ec2.create_instances(
         ImageId="ami-0b1b702a76781d077",
@@ -35,11 +52,14 @@ def main(args):
             {
                 "ResourceType": "instance",
                 "Tags": [
-                    {"Key": "Name", "Value": name},
+                    {"Key": "Name", "Value": args.name},
                 ],
             }
         ],
     )
+
+    for ec2_instance in instances:
+        put_cpu_alarm(ec2_instance.id)
 
 
 if __name__ == "__main__":
