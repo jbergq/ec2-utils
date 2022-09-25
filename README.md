@@ -39,6 +39,7 @@ It can be convenient to store your SSH keys inside your EFS. If this is the case
 
 ```
 touch ~/.ssh/config
+nano ~/.ssh/config
 ```
 
 Inside of the file, paste the following:
@@ -51,7 +52,9 @@ Host github.com
 
 Where `/path/to/ssh/id_rsa` can for example be `/mnt/efs/.ssh/id_rsa`.
 
-### Install virtualenv, pip
+## (Optional) Install Python virtual environment
+
+### virtualenv, pip
 
 To install virtualenv and pip in the new instance, run
 
@@ -65,4 +68,12 @@ To create a new virtual environment, run
 
 ```
 python3.8 -m venv /path/to/venv
+```
+
+### mamba
+
+```
+conda init bash
+mamba create -n nameofmyenv
+conda activate nameofmyenv
 ```
