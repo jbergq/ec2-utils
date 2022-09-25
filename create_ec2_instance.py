@@ -31,7 +31,7 @@ def parse_args():
         default="t3.micro",
         help="The type of instance you want to create. Use 't3.micro' "
         + "for a normal CPU instance and 'g4dn.xlarge' for a GPU instance.",
-        choices=["t3.micro", "g4dn.xlarge"],
+        choices=["t3.micro", "t3.medium", "g4dn.xlarge"],
     )
 
     return parser.parse_args()
