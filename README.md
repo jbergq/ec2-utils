@@ -52,6 +52,15 @@ Host github.com
 
 Where `/path/to/ssh/id_rsa` can for example be `/mnt/efs/.ssh/id_rsa`.
 
+### Setup git
+
+Run the following commands to configure your git user:
+
+```
+git config --global user.name "FIRST_NAME LAST_NAME"
+git config --global user.email "MY_NAME@example.com"
+```
+
 ## (Optional) Install Python virtual environment
 
 ### virtualenv, pip
