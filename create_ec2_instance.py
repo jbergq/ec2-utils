@@ -33,6 +33,9 @@ def parse_args():
         + "for a normal CPU instance and 'g4dn.xlarge' for a GPU instance.",
         choices=["t3.micro", "t3.medium", "g4dn.xlarge"],
     )
+    parser.add_argument(
+        "-s", "--size", type=int, default=50, help="The storage size of the instance."
+    )
 
     return parser.parse_args()
 
@@ -54,6 +57,12 @@ def main(args):
                 "Tags": [
                     {"Key": "Name", "Value": args.name},
                 ],
+            }
+        ],
+        BlockDeviceMappings=[
+            {
+                "DeviceName": "/dev/sda1",
+                "Ebs": {"VolumeSize": args.size, "VolumeType": "standard"},
             }
         ],
     )
