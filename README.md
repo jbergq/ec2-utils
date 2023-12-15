@@ -1,4 +1,4 @@
-# aws-utils
+# ec2-utils
 
 Command-line interface for easily setting up and connecting to AWS EC2 instances for deep learning development.
 
