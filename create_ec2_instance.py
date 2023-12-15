@@ -1,13 +1,15 @@
 import boto3
 from PyInquirer import prompt
 
+REGION = "eu-central-1"
+
 
 def put_cpu_alarm(instance_id):
     cloudwatch = boto3.client("cloudwatch")
     cloudwatch.put_metric_alarm(
         AlarmName=f"CPU_ALARM_{instance_id}",
         AlarmDescription="Alarm when server CPU does not exceed 10%",
-        AlarmActions=["arn:aws:automate:eu-central-1:ec2:stop"],
+        AlarmActions=[f"arn:aws:automate:{REGION}:ec2:stop"],
         MetricName="CPUUtilization",
         Namespace="AWS/EC2",
         Statistic="Maximum",
@@ -21,7 +23,7 @@ def put_cpu_alarm(instance_id):
 
 
 def main():
-    ec2 = boto3.resource("ec2", region_name="eu-central-1")
+    ec2 = boto3.resource("ec2", region_name=REGION)
 
     questions = [
         {
