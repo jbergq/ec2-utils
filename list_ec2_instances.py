@@ -1,13 +1,14 @@
 from collections import defaultdict
 
 import boto3
+from pathlib import Path
 
 """
 A tool for retrieving basic information from the running EC2 instances.
 """
 
 # Connect to EC2
-ec2 = boto3.resource("ec2")
+ec2 = boto3.resource("ec2", region_name="eu-central-1")
 
 # Get information for all running instances
 running_instances = ec2.instances.filter(
@@ -42,7 +43,5 @@ for instance in running_instances:
     for attr, instance_value in instance_info.items():
         print("{0}: {1}".format(attr, instance_value))
 
-    print(
-        f'\nConnect command: \nssh -i ".ssh/ec2-key-pair.pem" ubuntu@{instance.public_dns_name}'
-    )
+    print(f"\nSSH command: \nssh ubuntu@{instance.public_dns_name}")
     print("------")
