@@ -13,9 +13,13 @@ def main():
 
     if len(list(running_instances)) == 0:
         print("No instances active.")
+        exit(0)
 
-    ec2info = {}
+    print("Instances:\n")
+
     for instance in running_instances:
+        print("-" * 30)
+
         name = "-"
 
         if instance.tags is not None:
@@ -23,7 +27,6 @@ def main():
                 if tag["Key"] == "Name":
                     name = tag["Value"]
 
-        # Add instance info to a dictionary
         instance_info = {
             "Name": name,
             "Type": instance.instance_type,
@@ -34,13 +37,9 @@ def main():
             "Public DNS Name": instance.public_dns_name,
         }
 
-        ec2info[instance.id] = instance_info
-
         for attr, instance_value in instance_info.items():
-            print("{0}: {1}".format(attr, instance_value))
-
-        print(f"\nSSH command: \nssh ubuntu@{instance.public_dns_name}")
-        print("------")
+            print(f"{attr}: {instance_value}")
+        print(f"SSH command: ssh ubuntu@{instance.public_dns_name}")
 
 
 if __name__ == "__main__":

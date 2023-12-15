@@ -25,6 +25,7 @@ def put_cpu_alarm(instance_id):
 def main():
     ec2 = boto3.resource("ec2", region_name=REGION)
 
+    # Configure EC2 instance using PyInquirer.
     questions = [
         {
             "type": "input",
@@ -78,10 +79,9 @@ def main():
             "message": "Instance volume size:",
         },
     ]
-
     answers = prompt(questions)
 
-    # Create a new EC2 instance.
+    # Create new EC2 instance.
     instances = ec2.create_instances(
         ImageId=answers["ami_id"],
         MinCount=1,
@@ -108,6 +108,7 @@ def main():
         ],
     )
 
+    # Automatically stop instance if CPU usage is continuously low.
     for ec2_instance in instances:
         put_cpu_alarm(ec2_instance.id)
 
